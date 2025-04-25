@@ -14,28 +14,28 @@
                     </p>
                 </div>
 
-                <!-- Form Grid Layout -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Judul Buku -->
-                    <div class="col-span-2">
-                        <div class="relative">
-                            <input type="text" name="nama" id="nama"
-                                class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder=" " required />
-                            <label for="nama"
-                                class="absolute left-4 -top-2.5 bg-white px-2 text-sm text-gray-600 transition-all">
-                                Judul Buku
-                            </label>
+                    <!-- Form Grid Layout -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Judul Buku -->
+                        <div class="col-span-2">
+                            <div class="relative border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                                <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Judul Buku
+                                </label>
+                                <input type="text" name="nama" id="nama"
+                                    class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                    placeholder="Masukkan judul buku..." required />
+                            </div>
                         </div>
                     </div>
 
                     <!-- Kategori -->
-                    <div>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
                         <label for="kategori_id" class="block text-sm font-medium text-gray-700 mb-2">
                             Kategori
                         </label>
                         <select name="kategori_id" id="kategori_id" required
-                            class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500">
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
                             <option value="">Pilih Kategori</option>
                             @foreach ($kategori as $k)
                                 <option value="{{ $k->kategori_id }}">{{ $k->nama_kategori }}</option>
@@ -44,61 +44,44 @@
                     </div>
 
                     <!-- Penulis -->
-                    <div>
-                        <div class="relative">
-                            <input type="text" name="penulis" id="penulis"
-                                class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-                                placeholder=" " required />
-                            <label for="penulis"
-                                class="absolute left-4 -top-2.5 bg-white px-2 text-sm text-gray-600">
-                                Penulis
-                            </label>
-                        </div>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                        <label for="penulis" class="block text-sm font-medium text-gray-700 mb-2">Penulis</label>
+                        <input type="text" name="penulis" id="penulis"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                            placeholder="Masukkan nama penulis" required />
                     </div>
 
                     <!-- Penerbit -->
-                    <div>
-                        <div class="relative">
-                            <input type="text" name="penerbit" id="penerbit"
-                                class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-                                placeholder=" " required />
-                            <label for="penerbit"
-                                class="absolute left-4 -top-2.5 bg-white px-2 text-sm text-gray-600">
-                                Penerbit
-                            </label>
-                        </div>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                        <label for="penerbit" class="block text-sm font-medium text-gray-700 mb-2">Penerbit</label>
+                        <input type="text" name="penerbit" id="penerbit"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                            placeholder="Masukkan nama penerbit" required />
                     </div>
 
                     <!-- Harga -->
-                    <div>
-                        <div class="relative">
-                            <input type="number" name="harga" id="harga"
-                                class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-                                placeholder=" " required />
-                            <label for="harga"
-                                class="absolute left-4 -top-2.5 bg-white px-2 text-sm text-gray-600">
-                                Harga
-                            </label>
-                        </div>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                        <label for="harga" class="block text-sm font-medium text-gray-700 mb-2">Harga</label>
+                        <input type="number" name="harga" id="harga"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                            placeholder="Masukkan harga buku" required />
                     </div>
 
                     <!-- Stok -->
-                    <div>
-                        <label for="stok" class="block text-sm font-medium text-gray-700 mb-2">
-                            Stok
-                        </label>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                        <label for="stok" class="block text-sm font-medium text-gray-700 mb-2">Stok</label>
                         <input type="number" name="stok" id="stok" value="{{ old('stok', 0) }}"
-                            class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500">
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
                     </div>
 
                     <!-- Tanggal Terbit -->
-                    <div>
-                        <div class="relative space-x-4">
-                            <input datepicker datepicker-autohide type="text" name="tanggal_terbit" id="datepicker-input"
-                                class="w-full rounded-lg border-gray-300 px-4 py-3 bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
-                                placeholder="Tanggal Masuk" required/>
-                        </div>
+                    <div class="border border-gray-300 rounded-lg p-4 shadow-sm bg-white">
+                        <label for="tanggal_terbit" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Terbit</label>
+                        <input datepicker datepicker-autohide type="text" name="tanggal_terbit" id="datepicker-input"
+                            class="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                            placeholder="Pilih tanggal terbit" required />
                     </div>
+
 
                     <!-- Upload Gambar -->
                     <div class="col-span-2">

@@ -3,7 +3,9 @@
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PembeliController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', function () {
+    return view('landing');
+});
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::get('/profil', [ProfileController::class, 'view'])->name('profile.view')->middleware('auth');
+Route::put('/profil', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 Route::get('/pembeli', [PembeliController::class, 'index'])->name('pembeli.index');
 Route::get('/pembeli/create', [PembeliController::class, 'create'])->name('pembeli.create');
@@ -23,7 +41,7 @@ Route::get('/pembeli/{pembeli}/edit', [PembeliController::class, 'edit'])->name(
 Route::put('/pembeli/{pembeli}', [PembeliController::class, 'update'])->name('pembeli.update');
 Route::delete('/pembeli/{pembeli}', [PembeliController::class, 'destroy'])->name('pembeli.destroy');
 
-Route::get('/',[BukuController::class, 'index']) -> name('home');
+Route::get('/home',[BukuController::class, 'index']) -> name('home');
 Route::get('/input',[BukuController::class, 'input']);
 Route::get('/listbuku', [BukuController::class, 'listbuku'])->name('listBuku');
 Route::post('/buku',[BukuController::class, 'buku']);

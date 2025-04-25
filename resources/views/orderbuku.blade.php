@@ -3,9 +3,9 @@
 @section('content')
 <div class="bg-white shadow-md rounded-lg overflow-hidden">
     <div class="flex justify-between items-center p-6 bg-blue-900 text-white">
-        <h2 class="text-2xl font-bold">Daftar Order</h2>
+        <h2 class="text-2xl font-bold">Daftar Data Penjualan</h2>
         <a href="/order/create" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-            Tambah Orderan
+            Tambah data
         </a>
     </div>
 
@@ -21,6 +21,8 @@
                     <th scope="col" class="px-6 py-3">Harga Satuan</th>
                     <th scope="col" class="px-6 py-3">Total Harga</th>
                     <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Nama Admin</th>
+                    <th scope="col" class="px-6 py-3">Tanggal Penjualan</th>
                     <th scope="col" class="px-6 py-3">Action</th>
                 </tr>
             </thead>
@@ -47,6 +49,8 @@
                     </td>
                     <td class="px-6 py-4">Rp{{ number_format($o->subtotal, 0, ',', '.') }}</td>
                     <td class="px-6 py-4">{{ $o->status }}</td>
+                    <td class="px-6 py-4">{{ $o->user->name ?? 'Tidak tersedia' }}</td> 
+                    <td class="px-6 py-4">{{ $o->tanggal_order}}</td>
                     <td class="px-6 py-4">
                         <button onclick="openModal({{ $o->order_id }})" class="text-green-600 hover:text-green-900 mr-2">Detail</button>
                         <a href="{{ route('orders.edit', $o->order_id) }}" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
@@ -62,7 +66,8 @@
         </table>
     </div>
 </div>
-<!-- Modal -->
+
+
 <div id="orderModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -99,38 +104,39 @@
 
 <script>
     function openModal(orderId) {
-        fetch(`/api/orders/${orderId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Isi modal dengan data
-                document.getElementById('modal-order-id').textContent = data.order_id;
-                document.getElementById('modal-buku-id').textContent = data.buku_id;
-                document.getElementById('modal-pembeli-id').textContent = data.pembeli_id;
-                document.getElementById('modal-judul').textContent = data.buku.nama;
-                document.getElementById('modal-kategori').textContent = data.buku.kategori;
-                document.getElementById('modal-penulis').textContent = data.buku.penulis;
-                document.getElementById('modal-pembeli').textContent = data.pembeli.nama_pembeli;
-                document.getElementById('modal-alamat').textContent = data.pembeli.alamat_pembeli;
-                document.getElementById('modal-total').textContent = `Rp${data.subtotal.toLocaleString('id-ID')}`;
-                document.getElementById('modal-tanggal').textContent = new Date(data.tanggal_order).toLocaleDateString('id-ID');
-                document.getElementById('modal-status').textContent = data.status;
+    fetch(`/api/orders/${orderId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Isi modal dengan data
+            document.getElementById('modal-order-id').textContent = data.order_id;
+            document.getElementById('modal-buku-id').textContent = data.buku_id;
+            document.getElementById('modal-pembeli-id').textContent = data.pembeli_id;
+            document.getElementById('modal-judul').textContent = data.buku.nama;
+            document.getElementById('modal-kategori').textContent = data.buku.kategori;
+            document.getElementById('modal-penulis').textContent = data.buku.penulis;
+            document.getElementById('modal-pembeli').textContent = data.pembeli.nama_pembeli;
+            document.getElementById('modal-alamat').textContent = data.pembeli.alamat_pembeli;
+            document.getElementById('modal-total').textContent = `Rp${data.subtotal.toLocaleString('id-ID')}`;
 
-                // Tampilkan modal
-                document.getElementById('orderModal').classList.remove('hidden');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengambil data order');
-            });
-    }
+           
+            const tanggalOrder = data.tanggal_order
+            document.getElementById('modal-tanggal').textContent = tanggalOrder.toLocaleDateString('id-ID');
+            
+            document.getElementById('modal-status').textContent = data.status;
 
-    function closeModal() {
-        document.getElementById('orderModal').classList.add('hidden');
-    }
+            // Tampilkan modal
+            document.getElementById('orderModal').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengambil data order');
+        });
+}
+
 </script>
 @endsection

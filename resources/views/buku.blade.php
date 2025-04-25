@@ -19,6 +19,7 @@
                     <th scope="col" class="px-6 py-3">Penulis</th>
                     <th scope="col" class="px-6 py-3">Penerbit</th>
                     <th scope="col" class="px-6 py-3">Harga Satuan</th>
+                    <th scope="col" class="px-6 py-3">Stok</th>
                     <th scope="col" class="px-6 py-3">Action</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td class="px-6 py-4">{{ $b->penulis }}</td>
                     <td class="px-6 py-4">{{ $b->penerbit }}</td>
                     <td class="px-6 py-4">Rp{{ number_format($b->harga, 0, ',', '.') }}</td>
+                    <td class="px-6 py-4">{{ $b-> stok            }}</td>
                     <td class="px-6 py-4">
                         <a href="/edit/{{ $b->buku_id }}" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
                         <form action="/{{ $b->buku_id }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?')">

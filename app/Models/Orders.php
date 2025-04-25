@@ -18,12 +18,18 @@ class Orders extends Model
         'jumlah',
         'subtotal',
         'tanggal_order',
-        'status'
+        'status',
+        'user_id'
     ];
 
     public function buku()
     {
         return $this->belongsTo(Buku::class, 'buku_id','buku_id');
+
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function pembeli()

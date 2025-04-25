@@ -35,7 +35,7 @@ class BukuController extends Controller
             'penerbit' => 'required',
             'harga' => 'required|numeric',
             'tanggal_terbit' => 'required|date',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048' // max 2MB
+            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048' 
         ]);
 
         $data = $request->except(['_token','submit']);
