@@ -30,13 +30,6 @@ class OrderController extends Controller
     }
 
     
-    public function detail($order_id)
-    {
-        $order = Orders::with('buku')->findOrFail($order_id);
-        return view('detailorder', compact('order'));
-    }
-
-    
     public function edit($order_id)
     {
         $pembeli = Pembeli::all();
@@ -53,7 +46,7 @@ class OrderController extends Controller
             $oldJumlah = $order->jumlah;
 
            
-            $validated = $request->validate([
+            $request->validate([
                 'jumlah' => 'required|integer|min:1',
                 'status' => 'required|in:Diproses,Selesai,Batal',
             ]);
@@ -108,44 +101,44 @@ class OrderController extends Controller
     {
         try {
             DB::beginTransaction();
-
-            
-            $validated = $request->validate([
+    
+            // Validasi input
+            $request->validate([
                 'buku_id' => 'required|exists:buku,buku_id',
                 'pembeli_id' => 'required|exists:pembeli,pembeli_id',
-                'user_id' => Auth::id(), 
                 'jumlah' => 'required|integer|min:1',
                 'status' => 'required|in:Diproses,Selesai,Batal',
                 'tanggal_order' => 'required|date',
             ]);
-
-            
+    
+            // Mendapatkan buku dan pembeli
             $buku = Buku::findOrFail($request->buku_id);
             $pembeli = Pembeli::findOrFail($request->pembeli_id);
-
+            $user_id = Auth::id();
+    
             // Cek apakah stok cukup
             if ($buku->stok < $request->jumlah) {
                 throw new \Exception('Stok tidak mencukupi');
             }
-
+    
             // Hitung subtotal
             $subtotal = $buku->harga * $request->jumlah;
-
+    
             // Buat order baru
             $order = Orders::create([
                 'buku_id' => $request->buku_id,
                 'pembeli_id' => $request->pembeli_id,
-                'user_id' => $request->user_id, 
+                'user_id' => $user_id, 
                 'jumlah' => $request->jumlah,
                 'subtotal' => $subtotal,
                 'tanggal_order' => $request->tanggal_order,
-                'status' => $request-> status
+                'status' => $request->status
             ]);
-
+    
             // Kurangi stok buku dan update total pembelian pembeli
             $buku->decrement('stok', $request->jumlah);
             $pembeli->increment('total_pembelian', $subtotal);
-
+    
             DB::commit();
             return redirect('/orders')->with('success', 'Order berhasil ditambahkan!');
         } catch (\Exception $e) {
@@ -153,7 +146,7 @@ class OrderController extends Controller
             return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
         }
     }
-
+    
     // Menampilkan daftar order
     public function listorder()
     {

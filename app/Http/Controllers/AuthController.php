@@ -19,8 +19,8 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:6',
-            'role' => 'required|in:admin,kasir', // validasi role
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // validasi foto
+            'role' => 'required|in:admin,kasir', 
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
     
         $fotoPath = null;
@@ -51,7 +51,7 @@ class AuthController extends Controller
     
             
             if (Auth::user()->role !== 'admin' ) {
-                Auth::logout(); // logout user langsung
+                Auth::logout(); 
                 return back()->withErrors([
                     'email' => 'Akun Anda tidak memiliki akses sebagai admin.',
                 ]);

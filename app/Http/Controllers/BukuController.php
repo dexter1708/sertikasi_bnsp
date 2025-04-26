@@ -9,22 +9,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 class BukuController extends Controller
 {
-    public function index (){
-        $buku = Buku::all();
+     public function index (){
+        $buku =Buku::all();
         return view(view: 'default');
     }
     public function listbuku() {
 
         $buku = Buku::all(); // Fetch all books
         $buku = Buku::with('kategori')->get();
-        return view('buku', compact('buku')); // Pass the fetched books to the 'book' view
+        return view('buku', compact('buku')); 
     }
 
 
     public function input()
     {
-        $kategori = Kategori::all(); // Ambil semua kategori dari database
-        return view('input', compact('kategori')); // Pastikan 'kategori' tersedia di view
+        $kategori = Kategori::all(); 
+        return view('input', compact('kategori')); 
     }
 
     public function buku(Request $request){

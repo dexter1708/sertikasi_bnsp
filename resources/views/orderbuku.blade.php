@@ -50,9 +50,9 @@
                     <td class="px-6 py-4">Rp{{ number_format($o->subtotal, 0, ',', '.') }}</td>
                     <td class="px-6 py-4">{{ $o->status }}</td>
                     <td class="px-6 py-4">{{ $o->user->name ?? 'Tidak tersedia' }}</td> 
-                    <td class="px-6 py-4">{{ $o->tanggal_order}}</td>
+                    <td class="px-6 py-4">{{ \Carbon\Carbon::parse($o->tanggal_order)->format('d/m/Y') }}</td>
                     <td class="px-6 py-4">
-                        <button onclick="openModal({{ $o->order_id }})" class="text-green-600 hover:text-green-900 mr-2">Detail</button>
+
                         <a href="{{ route('orders.edit', $o->order_id) }}" class="text-blue-600 hover:text-blue-900 mr-2">Edit</a>
                         <form action="{{ route('orders.destroy', $o->order_id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?')">
                             @csrf
@@ -123,11 +123,16 @@
             document.getElementById('modal-alamat').textContent = data.pembeli.alamat_pembeli;
             document.getElementById('modal-total').textContent = `Rp${data.subtotal.toLocaleString('id-ID')}`;
 
-           
-            const tanggalOrder = data.tanggal_order
-            document.getElementById('modal-tanggal').textContent = tanggalOrder.toLocaleDateString('id-ID');
+            //const tanggalOrder = new Date(data.tanggal_order);
+            //const tanggalFormatted = tanggalOrder.getDate().toString().padStart(2, '0') + '/' +
+                         //(tanggalOrder.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                         //tanggalOrder.getFullYear();
+            //document.getElementById('modal-tanggal').textContent = tanggalFormatted;
+
+            //const tanggalOrder = new Date(data.tanggal_order);
+           // document.getElementById('modal-tanggal').textContent = tanggalOrder.toLocaleDateString('id-ID');
             
-            document.getElementById('modal-status').textContent = data.status;
+            //document.getElementById('modal-status').textContent = data.status;
 
             // Tampilkan modal
             document.getElementById('orderModal').classList.remove('hidden');

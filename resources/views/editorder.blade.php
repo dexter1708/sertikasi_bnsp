@@ -33,11 +33,10 @@
                 <input type="hidden" name="buku_id" value="{{ $order->buku_id }}">
                 <div class="text-center mb-6">
                     <h1 class="text-3xl font-bold text-blue-900 uppercase">
-                        Edit Order
+                        Edit Data penjualan
                     </h1>
                     <p class="mt-2 text-sm text-gray-600">
-                        Silakan edit detail order
-                    </p>
+                        Silakan edit data penjualan
                 </div>
 
                 <div class="space-y-6">
@@ -101,7 +100,7 @@
                     </a>
                     <button type="submit"
                             class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                        Update Order
+                        Update data
                     </button>
                 </div>
 

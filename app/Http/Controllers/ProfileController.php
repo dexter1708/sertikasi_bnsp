@@ -50,12 +50,12 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->password);
         }
 
-        // Update role jika ada (opsional, hanya admin yang bisa mengubah role)
+        
         if ($request->role && Auth::user()->role == 'admin') {
             $user->role = $request->role;
         }
 
-        // Simpan perubahan user
+       
         $user->save();
 
         return redirect()->route('profile.view')->with('success', 'Profil berhasil diperbarui!');
